@@ -1,0 +1,66 @@
+---
+title: "Worksheet practice problems"
+author: "Margaret Shreiner"
+date: "2025-02-27"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(gapminder)
+
+ggplot(gapminder, aes(gdpPercap, lifeExp))+geom_point(alpha=.6)+geom_smooth(color="red")
+
+ggplot(gapminder,aes(gdpPercap,lifeExp))+geom_point(aes(color=continent),alpha=.3)+geom_smooth(aes(color=continent))+scale_x_log10()
+
+ggplot(gapminder, aes(gdpPercap, lifeExp))+ geom_point(aes(color=continent), alpha=.4)+geom_smooth(method = lm, color="red", linetype=2)+scale_x_log10()
+
+ggplot(gapminder,aes(gdpPercap,lifeExp))+geom_point(aes(color=continent),alpha=.3)+geom_smooth(aes(color=continent), method = lm, se= FALSE)+scale_x_log10()
+
+ggplot(gapminder, aes(gdpPercap, lifeExp)) + geom_point(color="red", alpha=.4) + geom_smooth(color="darkgreen", method = "lm") + facet_grid(~continent) + theme_light() +scale_x_log10()
+
+ggplot(gapminder, aes(year, gdpPercap)) + geom_line() + geom_smooth(aes(group = continent)) + facet_grid(~continent, ncol(5)) + theme_light() 
+
+library(nycflights13)
+library(dplyr)
+
+filtered_flights <- flights %>%
+  filter(carrier %in% c("B6", "MQ", "WN"))
+
+ggplot(filtered_flights, aes(x = carrier, fill = carrier)) +
+  geom_bar() 
+
+library(socviz)
+titanic
+
+ggplot(titanic, aes(x=fate, y=percent, fill = sex)) + 
+  geom_bar(position = "dodge", stat="identity")
+#could also be done using geom_col, look below for example
+ggplot(titanic, aes(x=fate, y=percent, fill = sex)) + geom_col(position = "dodge")
+
+ggplot(flights, aes(distance)) + geom_histogram(binwidth = 1000,fill="yellow", color = "orange" )
+
+delayedflights <- flights %>% filter(carrier == "AA", dep_delay > 60)
+ggplot(delayedflights, aes(x = dest)) + geom_bar() + theme_minimal()
+
+ggplot(delayedflights, aes(x = dest)) + geom_bar() + theme_minimal() #not sure how to do the descending order
+
+#how to find NAs in a dataset
+sum(is.na(flights))
+
+#12---struggled with this one
+library(nycflights13)
+library(dplyr)
+library(tidyverse)
+#step 1 - make a new tibble
+fl <-flights %>% group_by(carrier) %>% summarise(total=n(), delayed=sum(dep_delay>0, na.rm = TRUE),on_time=sum(dep_delay<=0, na.rm = TRUE), canceled=sum(is.na(dep_delay)))
+#step 2 
+pivot_longer(fl, c("delayed", "on_time", "canceled"), names_to = "flight_status", values_to = "flights") %>% ggplot()+geom_bar(aes(x=carrier, y=flights, fill = flight_status), stat = "identity", position = "fill")
+
+
+
+
+
+
+```
+
