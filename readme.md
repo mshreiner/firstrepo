@@ -1,6 +1,6 @@
 testing, testing , testing 
 
-[Madison, WI] https://en.wikipedia.org/wiki/Madison,_Wisconsin
+[Madison, WI](https://en.wikipedia.org/wiki/Madison,_Wisconsin)
 
 Madison is currently: 
 - Cold
