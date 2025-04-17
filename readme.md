@@ -14,3 +14,5 @@ Restaurants in Madison:
 
 ## Madison
 Madison is fun!
+
+[This is my week from work 6](HW.html)
